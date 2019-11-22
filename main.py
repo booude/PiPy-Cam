@@ -3,8 +3,8 @@ import os
 import PySimpleGUIWeb as sg
 
 #Declarar variáveis de configuração da câmera
-inverter_v = 0
-inverter_h = 0
+inverter_v = 1
+inverter_h = 1
 opacidade = '255'
 nitidez = '0'
 contraste = '0'
@@ -12,7 +12,7 @@ brilho = '50'
 saturacao = '0'
 iso = '800'
 exposicao = '0'
-abertura = '1000'
+abertura = '8000000'
 
 #Condicionais para ativar e desativar espelhamento
 if inverter_v == 1:
@@ -36,16 +36,21 @@ pipycamera = f'raspistill {inverter_v} {inverter_h} -op {opacidade} -sh {nitidez
 os.system('DATE=$(date +"%Y-%m-%d_%H%M")')
 
 #Utilizando o método system
-os.system(pipycamera)
+"""os.system(pipycamera)"""
+print(pipycamera)
 
 #Interface em PySimpleGUI para configurar a câmera
-window = sg.Window('hello world').Layout([
-  [sg.Text('hello world')],
-  [sg.InputText('enter name')],
+layout = [
+  [sg.Text('Opacidade (255)'),sg.InputText('(0-255)')],  [sg.Text('Nitidez (0)'),sg.InputText('(-100-100)')],
+  [sg.Text('Contraste (0)'),sg.InputText('(-100-100)')],
+  [sg.Text('Brilho (50)'),sg.InputText('(0-100)')],
+  [sg.Text('Saturação (0)'),sg.InputText('(-100-100)')],
+  [sg.Text('ISO (8)'),sg.InputText('(100-800)')],
+  [sg.Text('Exposição (0)'),sg.InputText('(-10-10)')],
+  [sg.Text('Abertura (1/125)'),sg.InputText('(~-6000000)')],
   [sg.Submit(), sg.Cancel()]
-])
+]
 
-[button, [name]] = window.Read()
-
-if button == 'Submit':
-  print('Hello ' + name)
+window = sg.Window('PiPy Camera Manager').Layout(layout)
+button, values = window.Read()
+print(button, values[0], values[1], values[2])
