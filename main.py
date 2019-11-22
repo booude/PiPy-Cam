@@ -53,4 +53,12 @@ layout = [
 
 window = sg.Window('PiPy Camera Manager').Layout(layout)
 button, values = window.Read()
-print(button, values[0], values[1], values[2])
+opacidade = values[0]
+nitidez = values[1]
+contraste = values[2]
+brilho = values[3]
+saturacao = values[4]
+iso = values[5]
+exposicao = values[6]
+abertura = values[7]
+print(pipycamera)
