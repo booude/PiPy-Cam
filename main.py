@@ -47,4 +47,5 @@ else:
 os.system('DATE=$(date +"%Y-%m-%d_%H%M")')
 
 #Script que será montado com as variáveis inseridas
+os.system(f'raspistill {inverter_v} {inverter_h} -op {opacidade} -sh {nitidez} -co {contraste} -br {brilho} -sa {saturacao} -ISO {iso} -ev {exposicao} -ss {abertura} -o /home/pi/camera/$DATE.jpg')
 print(f'raspistill {inverter_v} {inverter_h} -op {opacidade} -sh {nitidez} -co {contraste} -br {brilho} -sa {saturacao} -ISO {iso} -ev {exposicao} -ss {abertura} -o /home/pi/camera/$DATE.jpg')
