@@ -53,6 +53,7 @@ while True:
     os.system('DATE=$(date +"%Y-%m-%d_%H%M")')
 
 #Montando o script para tirar foto de acordo com os parâmetros informados na interface
-    print("raspistill {} {} -op {} -sh {} -co {} -br {} -sa {} -ISO {} -ev {} -ss {} -o /home/pi/camera/$DATE.jpg" .format(inverter_v,inverter_h,opacidade,nitidez,contraste,brilho,saturacao,iso,exposicao,abertura))
+    os.system("raspistill {} {} -op {} -sh {} -co {} -br {} -sa {} -ISO {} -ev {} -ss {} -o /home/pi/camera/$DATE.jpg" .format(inverter_v,inverter_h,opacidade,nitidez,contraste,brilho,saturacao,iso,exposicao,abertura))
+#     print("raspistill {} {} -op {} -sh {} -co {} -br {} -sa {} -ISO {} -ev {} -ss {} -o /home/pi/camera/$DATE.jpg" .format(inverter_v,inverter_h,opacidade,nitidez,contraste,brilho,saturacao,iso,exposicao,abertura))
 
 window.close()
