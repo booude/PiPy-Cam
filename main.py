@@ -10,7 +10,7 @@ layout = [
 
   [sg.Text('Saturação(0)'),sg.Slider(range=(-100,100), default_value=0, size=(10,10), orientation='horizontal',font=('Helvetica', 12)), sg.Text('ISO(800)'),sg.Slider(range=(100,800), default_value=800, size=(10,10), orientation='horizontal', font=('Helvetica', 12))],
 
-  [sg.Text('Exposição(0)'),sg.Slider(range=(-10,10), default_value=0, size=(10,10), orientation='horizontal',font=('Helvetica', 12)), sg.Text('Abertura(1/125)'),sg.Slider(range=(-100,100), default_value=8000000, size=(10,10), orientation='horizontal', font=('Helvetica', 12))],
+  [sg.Text('Exposição(0)'),sg.Slider(range=(-10,10), default_value=0, size=(10,10), orientation='horizontal',font=('Helvetica', 12)), sg.Text('Abertura(1/125)'),sg.Slider(range=(0,6000000), default_value=1000, size=(10,10), orientation='horizontal', font=('Helvetica', 12))],
 
   [sg.Checkbox('Inverter Vertical', default=True)],[sg.Checkbox('Inverter Horizontal', default=True)],
   
@@ -32,7 +32,7 @@ abertura = values[7]
 inverter_v = values[8]
 inverter_h = values[9]
 
-#Condicionais para ativar e desativar espelhamento
+#Condicionais para traduzir o botão de espelhamento de imagem
 if inverter_v == True:
   inverter_v = '-vf'
 else:
@@ -43,9 +43,8 @@ if inverter_h == True:
 else:
   inverter_h = ''
 
-#Inserindo valor de data ao nome da foto
+#Inserindo data à variável utilizada no nome da foto
 os.system('DATE=$(date +"%Y-%m-%d_%H%M")')
 
-#Script que será montado com as variáveis inseridas
-os.system(f'raspistill {inverter_v} {inverter_h} -op {opacidade} -sh {nitidez} -co {contraste} -br {brilho} -sa {saturacao} -ISO {iso} -ev {exposicao} -ss {abertura} -o /home/pi/camera/$DATE.jpg')
-print(f'raspistill {inverter_v} {inverter_h} -op {opacidade} -sh {nitidez} -co {contraste} -br {brilho} -sa {saturacao} -ISO {iso} -ev {exposicao} -ss {abertura} -o /home/pi/camera/$DATE.jpg')
+#Montando o script para tirar foto de acordo com os parâmetros informados na interface
+os.system("raspistill {} {} -op {} -sh {} -co {} -br {} -sa {} -ISO {} -ev {} -ss {} -o /home/pi/camera/$DATE.jpg" .format(inverter_v,inverter_h,opacidade,nitidez,contraste,brilho,saturacao,iso,exposicao,abertura))
