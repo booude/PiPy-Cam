@@ -3,6 +3,8 @@ import os
 import PySimpleGUI as sg
 
 #Interface em PySimpleGUI para configurar a câmera
+sg.change_look_and_feel('LightBlue')
+
 layout = [
   [sg.Text('Opacidade'),sg.Slider(range=(0,255), default_value=255, size=(20,10), orientation='horizontal',font=('Helvetica', 12)), sg.Text('Nitidez'),sg.Slider(range=(-100,100), default_value=0, size=(20,10), orientation='horizontal', font=('Helvetica', 12))],
 
@@ -16,14 +18,14 @@ layout = [
 
   [sg.Checkbox('Inverter Vertical', default=True)],[sg.Checkbox('Inverter Horizontal', default=True)],
   
-  [sg.Submit('Capturar'), sg.Exit('Sair')]
+  [sg.Submit('Capturar'), sg.Cancel('Sair')]
 ]
 
-window = sg.Window('PiPy Camera Manager').Layout(layout)
+window = sg.Window('PiPy Camera Manager', layout)
 
 while True:
     event, values = window.read()
-    if event is None or event == 'Sair':
+    if event in (None, 'Sair'): 
         break
     
 #Declarar variáveis de configuração da câmera
@@ -53,7 +55,7 @@ while True:
     os.system('DATE=$(date +"%Y-%m-%d_%H%M")')
 
 #Montando o script para tirar foto de acordo com os parâmetros informados na interface
-    os.system("raspistill {} {} -op {} -sh {} -co {} -br {} -sa {} -ISO {} -ev {} -ss {} -o /home/pi/camera/$DATE.jpg" .format(inverter_v,inverter_h,opacidade,nitidez,contraste,brilho,saturacao,iso,exposicao,abertura))
-#     print("raspistill {} {} -op {} -sh {} -co {} -br {} -sa {} -ISO {} -ev {} -ss {} -o /home/pi/camera/$DATE.jpg" .format(inverter_v,inverter_h,opacidade,nitidez,contraste,brilho,saturacao,iso,exposicao,abertura))
+#     os.system("raspistill {} {} -op {} -sh {} -co {} -br {} -sa {} -ISO {} -ev {} -ss {} -o /home/pi/camera/$DATE.jpg" .format(inverter_v,inverter_h,opacidade,nitidez,contraste,brilho,saturacao,iso,exposicao,abertura))
+    print("raspistill {} {} -op {} -sh {} -co {} -br {} -sa {} -ISO {} -ev {} -ss {} -o /home/pi/camera/$DATE.jpg" .format(inverter_v,inverter_h,opacidade,nitidez,contraste,brilho,saturacao,iso,exposicao,abertura))
 
 window.close()
