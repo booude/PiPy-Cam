@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['PiPy Camera Manager.py'],
-             pathex=['/home/bode/Desktop'],
+             pathex=['/home/pi/Desktop'],
              binaries=[],
              datas=[],
              hiddenimports=[],

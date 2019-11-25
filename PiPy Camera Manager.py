@@ -14,9 +14,9 @@ layout = [
 
   [sg.Text('Exposição'),sg.Slider(range=(-10,10), default_value=0, size=(20,10), orientation='horizontal',font=('Helvetica', 12))],
   
-  [sg.Text('Abertura'),sg.Slider(range=(0,6000), default_value=8, size=(45,10), orientation='horizontal', font=('Helvetica', 12))],
+  [sg.Text('Abertura'),sg.Slider(range=(0,600000), default_value=8000, size=(45,10), orientation='horizontal', font=('Helvetica', 12))],
 
-  [sg.Checkbox('Inverter Vertical', default=True)],[sg.Checkbox('Inverter Horizontal', default=True)],
+  [sg.Checkbox('Inverter Vertical', default=True)],[sg.Checkbox('Inverter Horizontal', default=False)],
   
   [sg.Submit('Capturar'), sg.Cancel('Sair')]
 ]
@@ -52,10 +52,10 @@ while True:
       inverter_h = ''
 
 #Inserindo data à variável utilizada no nome da foto
-    os.system('DATE=$(date +"%Y-%m-%d_%H%M")')
+#    os.system('DATE=$(date +"%Y-%m-%d_%H%M")')
 
 #Montando o script para tirar foto de acordo com os parâmetros informados na interface
-    os.system("raspistill {} {} -op {} -sh {} -co {} -br {} -sa {} -ISO {} -ev {} -ss {} -o /home/pi/camera/$DATE.jpg" .format(inverter_v,inverter_h,opacidade,nitidez,contraste,brilho,saturacao,iso,exposicao,abertura))
+    os.system('DATE=$(date +"%Y-%m-%d_%H%M") && raspistill {} {} -op {} -sh {} -co {} -br {} -sa {} -ISO {} -ev {} -ss {}us -t 1 -o /home/pi/photos/$DATE.jpg' .format(inverter_v,inverter_h,opacidade,nitidez,contraste,brilho,saturacao,iso,exposicao,abertura))
 #    print("raspistill {} {} -op {} -sh {} -co {} -br {} -sa {} -ISO {} -ev {} -ss {} -o /home/pi/camera/$DATE.jpg" .format(inverter_v,inverter_h,opacidade,nitidez,contraste,brilho,saturacao,iso,exposicao,abertura))
 
 window.close()
