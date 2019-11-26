@@ -2,6 +2,9 @@
 import os
 import PySimpleGUI as sg
 
+#Variável para diferenciar fotos
+n=1
+
 #Interface em PySimpleGUI para configurar a câmera
 sg.change_look_and_feel('LightBlue')
 
@@ -43,9 +46,6 @@ while True:
     inverter_h = values[9]
     quantidade = values[10]
 #    quantidade = int(quantidade)
-    
-#Variável para diferenciar fotos
-    n=1
   
 #Condicionais para traduzir o botão de espelhamento de imagem
     if inverter_v == True:
