@@ -18,6 +18,8 @@ layout = [
 
   [sg.Checkbox('Inverter Vertical', default=True)],[sg.Checkbox('Inverter Horizontal', default=False)],
   
+  [sg.Text('Quantidade de fotos'),sg.Spin([i for i in range(1,101)], initial_value=1)],
+  
   [sg.Submit('Capturar'), sg.Cancel('Sair')]
 ]
 
@@ -39,7 +41,12 @@ while True:
     abertura = values[7]
     inverter_v = values[8]
     inverter_h = values[9]
-
+    quantidade = values[10]
+#    quantidade = int(quantidade)
+    
+#Variável para diferenciar fotos
+    n=1
+  
 #Condicionais para traduzir o botão de espelhamento de imagem
     if inverter_v == True:
       inverter_v = '-vf'
@@ -52,10 +59,14 @@ while True:
       inverter_h = ''
 
 #Inserindo data à variável utilizada no nome da foto
-#    os.system('DATE=$(date +"%Y-%m-%d_%H%M")')
-
+#    os.system('DATE=$(date +"%Y-%m-%d_%H%M")') ##Integrado à outra linha de código para corrigir bugs na versão buildada
+ 
 #Montando o script para tirar foto de acordo com os parâmetros informados na interface
-    os.system('DATE=$(date +"%Y-%m-%d_%H%M") && raspistill {} {} -op {} -sh {} -co {} -br {} -sa {} -ISO {} -ev {} -ss {}us -t 1 -o /home/pi/photos/$DATE.jpg' .format(inverter_v,inverter_h,opacidade,nitidez,contraste,brilho,saturacao,iso,exposicao,abertura))
-#    print("raspistill {} {} -op {} -sh {} -co {} -br {} -sa {} -ISO {} -ev {} -ss {} -o /home/pi/camera/$DATE.jpg" .format(inverter_v,inverter_h,opacidade,nitidez,contraste,brilho,saturacao,iso,exposicao,abertura))
-
+    i = 0
+    while i < quantidade:
+        os.system('DATE=$(date +"%Y-%m-%d_%H%M") && raspistill {} {} -op {} -sh {} -co {} -br {} -sa {} -ISO {} -ev {} -ss {}us -t 1 -o /home/pi/photos/$DATE{}.jpg' .format(inverter_v,inverter_h,opacidade,nitidez,contraste,brilho,saturacao,iso,exposicao,abertura,n))
+#        print('DATE=$(date +"%Y-%m-%d_%H%M") && raspistill {} {} -op {} -sh {} -co {} -br {} -sa {} -ISO {} -ev {} -ss {}us -t 1 -o /home/pi/photos/$DATE{}.jpg' .format(inverter_v,inverter_h,opacidade,nitidez,contraste,brilho,saturacao,iso,exposicao,abertura,n))
+        i+=1
+        n+=1
+    
 window.close()
