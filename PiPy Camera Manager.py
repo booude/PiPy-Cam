@@ -2,9 +2,6 @@
 import os
 import PySimpleGUI as sg
 
-#Variável para diferenciar fotos
-n=1
-
 #Interface em PySimpleGUI para configurar a câmera
 sg.change_look_and_feel('LightBlue')
 
@@ -17,11 +14,11 @@ layout = [
 
   [sg.Text('Exposição'),sg.Slider(range=(-10,10), default_value=0, size=(20,10), orientation='horizontal',font=('Helvetica', 12))],
   
-  [sg.Text('Abertura'),sg.Slider(range=(0,600000), default_value=8000, size=(45,10), orientation='horizontal', font=('Helvetica', 12))],
+  [sg.Text('Abertura'),sg.Slider(range=(0,600000), default_value=2000, size=(45,10), orientation='horizontal', font=('Helvetica', 12))],
 
   [sg.Checkbox('Inverter Vertical', default=True)],[sg.Checkbox('Inverter Horizontal', default=False)],
   
-  [sg.Text('Quantidade de fotos'),sg.Spin([i for i in range(1,101)], initial_value=1)],
+  [sg.Text('Quantidade de fotos'),sg.Spin([i for i in range(1,1001)], initial_value=1)],
   
   [sg.Submit('Capturar'), sg.Cancel('Sair')]
 ]
@@ -64,9 +61,8 @@ while True:
 #Montando o script para tirar foto de acordo com os parâmetros informados na interface
     i = 0
     while i < quantidade:
-        os.system('DATE=$(date +"%Y-%m-%d_%H%M") && raspistill {} {} -op {} -sh {} -co {} -br {} -sa {} -ISO {} -ev {} -ss {}us -t 1 -o /home/pi/photos/$DATE{}.jpg' .format(inverter_v,inverter_h,opacidade,nitidez,contraste,brilho,saturacao,iso,exposicao,abertura,n))
-#        print('DATE=$(date +"%Y-%m-%d_%H%M") && raspistill {} {} -op {} -sh {} -co {} -br {} -sa {} -ISO {} -ev {} -ss {}us -t 1 -o /home/pi/photos/$DATE{}.jpg' .format(inverter_v,inverter_h,opacidade,nitidez,contraste,brilho,saturacao,iso,exposicao,abertura,n))
+        os.system('DATE=$(date +"%Y-%m-%d_%H:%M:%S:%N") && raspistill {} {} -op {} -sh {} -co {} -br {} -sa {} -ISO {} -ev {} -ss {}us -t 1 -w 800 -h 600 -o /home/pi/photos/$DATE.jpg' .format(inverter_v,inverter_h,opacidade,nitidez,contraste,brilho,saturacao,iso,exposicao,abertura))
+#        print('DATE=$(date +"%Y-%m-%d_%H%M") && raspistill {} {} -op {} -sh {} -co {} -br {} -sa {} -ISO {} -ev {} -ss {}us -t 1 -o /home/pi/photos/$DATE.jpg' .format(inverter_v,inverter_h,opacidade,nitidez,contraste,brilho,saturacao,iso,exposicao,abertura))
         i+=1
-        n+=1
     
 window.close()
